@@ -17,17 +17,17 @@
     <h2>Register</h2>
     <form action="{% url 'register' %}" method='post'>
       {% csrf_token %}
-      First Name <input type="text" name="first_name">
-      Last Name <input type="text" name="last_name">
-      Email <input type="email" name="email">
-      Password <input type="password" name="password">
-      Confirm Password <input type="password" name="confirm_pw">
+      First Name: <input type="text" name="first_name">
+      Last Name: <input type="text" name="last_name">
+      User name: <input type="text" name="username">
+      Password: <input type="password" name="password">
+      Confirm Password: <input type="password" name="confirm_pw">
       <input type="submit" value="Register">
     </form>
     <h2>Login</h2>
     <form action="{% url 'login' %}" method='post'>
       {% csrf_token %}
-      Email <input type="email" name="email">
+      Username <input type="text" name="username">
       Password <input type="password" name="password">
       <input type="submit" value="Login">
     </form>

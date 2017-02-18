@@ -3,22 +3,100 @@
 <head>
 	<meta charset="UTF-8">
 	<title>app1</title>
+	<style>
+
+		*{
+			padding: 10px;
+		}
+		tr, th, td, table{
+			border: 1px solid black;
+		}
+
+	</style>
 </head>
 <body>
-	<h1>something</h1>
-	<form action="/">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-	</form>
-	<form action="/">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-	</form>
+<ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
 
+	<h1>Welcome to Travel with people</h1>
+	<h3>Your Personal Schedule</h3>
+	<table><tr>
+		<th>Destination</th>
+		<th>Travel start Date</th>
+		<th>Travel End Date</th>
+		<th>Travel Plan</th>
+		</tr>
+			<tr>
+			{% for place in me %}
+		
+			<td>
+			<a href="{% url 'destination' dest_id=place.id %}">{{place.name}}</a>
+			</td>
+			<td>
+			{{place.datefrom}}
+			</td>
+			<td>
+			{{place.dateto}}
+			</td>
+			<td>
+			{{place.description}}
+			</td></tr>
+			
+			{% endfor %}
+
+
+
+	</table>
+
+
+	<h3>Other trip Schedules</h3>
+	<table><tr>
+		<th>Travelling</th>
+		<th>Destination</th>
+		<th>Travel start Date</th>
+		<th>Travel End Date</th>
+		<th>Travel Plan</th>
+		<th>Wanna come?</th>
+		</tr>
+			<tr>
+		{% for place in everyone %}
+			<td>
+			{{place.published}}	
+			</td>
+			<td>
+			<a href="{% url 'destination' dest_id=place.id %}">{{place.name}}</a>
+			</td>
+			<td>
+			{{place.datefrom}}
+			</td>
+			<td>
+			{{place.dateto}}
+			</td>
+			<td>
+			{{place.description}}
+			</td>
+			<td>
+				<form action="{% url 'join' %}" method="POST">
+				{%csrf_token%}
+					<input type="hidden" name = "user_id" value={{request.session.user.id}}>
+					<input type="hidden" name ="destination_id" value={{place.id}}>
+					<input type="submit" value="Join">
+
+
+				</form>
+			</td>
+			</tr>
+			
+			{% endfor %}
+
+
+
+	</table>
+
+	<a href="{% url 'add_trip' %}"><button>Add Travel Plan!</button></a>
 	<a href="{% url 'logout' %}"><button>Logout</button></a>
 </body>
 </html>

@@ -29,13 +29,15 @@ def print_messages(request, message_list):
         messages.add_message(request, messages.INFO, message)
 
 def log_user_in(request, user):
+    #session of user
     request.session['user'] = {
-        'id' : user.first_name,
+        'id' : user.id,
         'first_name' : user.first_name,
         'last_name' : user.last_name,
-        'email' : user.email,
+        'username' : user.username,
     }
-    return redirect('index2')
+    #redirect after log in
+    return redirect('travels')
 
 def logout(request):
     request.session.pop('user')

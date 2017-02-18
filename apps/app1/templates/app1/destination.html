@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Destination</title>
+	<style>
+		
+	</style>
+</head>
+<body>
+<a href="{% url 'logout' %}"><button>Logout</button></a>
+<a href="{% url 'travels' %}"><button>Home</button></a>
+<h1>Are you going to..?</h1>
+<h3>Destination : {{ destination.name }}</h3>
+<p>Creator: {{ destination.published }}</p>
+<p>Description : {{ destination.description }}</p>
+
+<h4>Join these fine people</h4>
+<ul>
+
+{% for traveller in travellers %}
+	{{traveller.username}}
+{% endfor %}
+		
+	
+</ul>
+
+
+	
+</body>
+</html>
